@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "const PAD_SPEED = 200\nconst GRAVITY = 200.0\nvar velocity = Vector2()\n\nfunc _ready():\n\t#set_process(true)\n\tset_fixed_process(true)\n\n\t\nfunc _fixed_process(delta):\n\tif (Input.is_action_pressed(\"move_up\") and self.get_pos().y > 0):\n\t\tvelocity.y += delta * GRAVITY\n\tvar motion = velocity * delta\n\tmove(motion)"
+
+[sub_resource type="GDScript" id=2]
+
+script/source = ""
+
+[node name="Node2D" type="Node2D"]
+
+transform/pos = Vector2( 33, 30 )
+script/script = SubResource( 1 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = SubResource( 2 )
+
+[node name="player" type="Sprite" parent="KinematicBody2D"]
+
+texture = ExtResource( 1 )
+
+
